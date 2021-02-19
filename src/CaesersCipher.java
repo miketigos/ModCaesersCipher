@@ -39,7 +39,7 @@ public class CaesersCipher {
             System.out.println("(" + encrytpedMessage + ")");
 
             // run the decrypt func. and print the resulting string
-            String decrytpedMessage = (decryptMessage(encrytpedMessage, key));
+            String decrytpedMessage = (encryptMessage(encrytpedMessage, negateKey(key)));
             System.out.println("(" + decrytpedMessage + ")");
 
 
@@ -103,41 +103,13 @@ public class CaesersCipher {
         return sb.toString();
     }
 
-    /*
-     * This does the exact same thing as encrypt but it negates the key
-     * negating the key is how you solve the cipher,
-     * See documentation for encrypt message for logic of decrypt
-     * runs in O(k + n + n) where k is len of key and n is length of message
-     * the plus k is because of the negatekey method being O(n)
-     * plus other n for the sb.toString method
-     */
-    public String decryptMessage(String str, ArrayList<Integer> key) {
-        negateKey(key);
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < str.length(); i++) {
-            int curChar = str.charAt(i);
-            int curKey = (key.get(i % key.size()));
-            int shift = (curKey % 95);
-
-            if (shift == 0) {
-                sb.append((char) curChar);
-            } else if ((curChar + shift) < 32) {
-                sb.append((char) (127 + ((curChar - 32) + shift)));
-            } else if ((curChar + shift) > 126) {
-                sb.append((char) (31 + (curChar - 126) + shift));
-            } else {
-                sb.append((char) (curChar + shift));
-            }
-        }
-        return sb.toString();
-    }
     // this will loop through each entry in the key and negate it in place O(n)
-    private void negateKey(ArrayList<Integer> key) {
+    private ArrayList<Integer> negateKey(ArrayList<Integer> key) {
         for (int i = 0; i < key.size(); i++) {
             int curKey = key.get(i);
             key.set(i, (-curKey));
         }
+        return key;
     }
 }
 
