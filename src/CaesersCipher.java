@@ -1,23 +1,10 @@
-/**
- *
- * Author: Michael Thomas (michaelthomas@sandiego.edu)
- *
- * The Caeser Cipher is a primitive, yet still very functional way of encrypting text.
- * to accomplish this task, the encryptMessage program will do the following.
- * take in a string, shift all of the elements (using ascii decimal #) by the cipherShift,
- * create a new string with the shifted elements. It will then print to the console.
- * The decryptMessage program will first negate the key, and then perform the same as encrypting the message
- * in function reversing the operations done by encryptMessage.
- * We will then prompt to see if they want to run the program again, and we will either run again, or terminate
- *
- */
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CaesersCipher {
 
-    /**
-     * This method will get the user input for message and key
+
+     /* This method will get the user input for message and key
      * convert the users input for key into something we can use
      * then we will call the methods and print the results, then we
      * will see if the user wants to run the program again
@@ -43,8 +30,8 @@ public class CaesersCipher {
             String[] keyArray = code.split(" ");
 
             // parse the entries in the keyArray into integer and add to the key list
-            for (int i = 0; i < keyArray.length; i++) {
-                key.add(Integer.parseInt(keyArray[i]));
+            for (String s : keyArray) {
+                key.add(Integer.parseInt(s));
             }
 
             // run the ecrypt func. and print the resulting string
@@ -55,12 +42,12 @@ public class CaesersCipher {
             String decrytpedMessage = (decryptMessage(encrytpedMessage, key));
             System.out.println("(" + decrytpedMessage + ")");
 
-            /**
-             * Prompt the user to run the program again
-             * if 'y' then change the runAgain boolean variable to true and we will run again
-             * if 'n' then maintain the false status of runAgain and close the scanner and
-             * terminate the program with code 0
-             */
+
+             /* Prompt the user to run the program again
+              if 'y' then change the runAgain boolean variable to true and we will run again
+              if 'n' then maintain the false status of runAgain and close the scanner and
+              terminate the program with code 0 */
+
             System.out.print("Do you want to run the program again? (y/n)");
             String response = input.nextLine();
 
@@ -72,9 +59,9 @@ public class CaesersCipher {
         System.exit(0);
 
     }
-    /**runs in O(n + n) where n is length of message
+    /*runs in O(n + n) where n is length of message
      * plus other n for the sb.toString method
-     * */
+     */
     public String encryptMessage(String str, ArrayList<Integer> key) {
 
         StringBuilder sb = new StringBuilder();
@@ -82,7 +69,7 @@ public class CaesersCipher {
         for (int i = 0; i < str.length(); i++) {
 
             // curChar is the character that we are going to shift
-            int curChar = (int) str.charAt(i);
+            int curChar = str.charAt(i);
 
             // curKey is the key at the proper index, we use the mod.
             // operator to make sure we repeat the key
@@ -116,7 +103,7 @@ public class CaesersCipher {
         return sb.toString();
     }
 
-    /**
+    /*
      * This does the exact same thing as encrypt but it negates the key
      * negating the key is how you solve the cipher,
      * See documentation for encrypt message for logic of decrypt
@@ -129,7 +116,7 @@ public class CaesersCipher {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
-            int curChar = (int) str.charAt(i);
+            int curChar = str.charAt(i);
             int curKey = (key.get(i % key.size()));
             int shift = (curKey % 95);
 
